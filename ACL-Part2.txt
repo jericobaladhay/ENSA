@@ -1,0 +1,22 @@
+R1 
+
+ip access-list extended NO-HTTP
+deny tcp host 192.168.10.1 host 172.16.100.1 eq 80
+permit ip any any 
+int g0/0
+ip access-group NO-HTTP in
+
+
+=====================================
+
+R2
+
+username admin secret class
+ip access-list standard TELNET
+permit host 192.168.10.1 
+line vty 0 4
+login local
+transport input telnet 
+access-class TELNET in
+exit
+enable secret cisco 

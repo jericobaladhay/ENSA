@@ -1,0 +1,48 @@
+R1
+
+hostname R1
+int g0/0
+ip add 192.168.10.254 255.255.255.0
+no shut
+
+int s0/0/0
+ip add 10.10.10.5 255.255.255.252
+clock rate 64000
+no shut
+
+
+=========================
+
+R2
+
+hostname R2
+int g0/0
+ip add 172.16.100.126 255.255.255.128
+no shut
+
+itn s0/0/0
+ip add 10.10.10.6 255.255.255.252
+clock rate 64000
+no shut
+
+R1 ============== DEFAULT ROUTE (NO ROUTER PROTOCOL BETWEEN THEM =====
+exit
+
+ip route 0.0.0.0 0.0.0.0 s0/0/0
+
+sh ip route
+
+
+R2 ============== DEFAULT ROUTE (NO ROUTER PROTOCOL BETWEEN THEM =====
+exit
+
+ip route 0.0.0.0 0.0.0.0 10.10.10.5
+
+sh ip route
+
+
+
+
+ip route 0.0.0.0 0.0.0.0 s0/0/0
+
+sh ip route
